@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    
+    <title>Movie Collection</title>
+</head>
+<body>
+
+    <header>
+        <h2>Movie Collection</h2>
+    </header>
+
+    <div id="divAddMovie">
+        <h2>Add Movie</h2>
+        <form action="/addMovie" method="POST">
+
+            <div class="divForm">
+
+                <label for="txtTitle">Title</label>
+                <p><input class="divFormInput" type="text" name = "title" id="txtTitle"/></p>
+
+                <label for="txtDescription">Description</label>
+                <p><input class="divFormInput" type="text" name = "description" id="txtDescription"/></p>
+
+
+                <label for="txtGenre">Genre</label>
+                <p>
+                    <select name="genre" id="txtGenre">
+                        <option value="Action">Action</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Horror">Horror</option>
+                    </select>
+                </p>
+                
+                <label for="txtPosterURL">Image Url</label>
+                <p><input class="divFormInput" type="text" name="posterURL" id="txtPosterURL" value="https://images-na.ssl-images-amazon.com/images/I/51d8uGDcd6L._SY445_.jpg"/></p>
+
+            </div>
+
+            <div>
+                <input type="submit" value="Add Movie"/>
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <div>
+        <h2>Filter by Genre</h2>
+        <form action="/sortByGenre" method="GET">
+
+                <label for="txtSortByGenre">Filter By Genre</label>
+                <p>
+                    <select name="sortByGenre" id="txtSortByGenre">
+                        <option value="All">All</option>
+                        <option value="Action">Action</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Horror">Horror</option>
+                    </select>
+                    <input type="submit" value="Filter By Genre"/>
+                </p>
+
+        </form>
+    </div>  
+
+
+    <h2>Display Movies</h2>
+    <div id="divDisplay">
+    
+        {{#movieCollection}}
+            <div class="divDislayInner">
+                <p>
+                
+                        {{title}} - Id: {{id}} (Genre: {{genre}})
+                        <div>
+                            <img id="posterURL" src="{{posterURL}}">
+                            <form action="/deleteMovie" method="POST">
+                                <input type="hidden" name="id" value="{{id}}"/>
+                                <input type="submit" value="Remove Movie"/>
+                            </form>
+                            <form action="/movieDetails/{{id}}" method="GET">
+                                <input type="submit" value="Details"/>
+                            </form>
+                        </div>
+          
+                </p>
+            </div>
+        {{/movieCollection}}
+    </div>
+
+
+</body>
+</html>
